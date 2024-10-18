@@ -1,11 +1,199 @@
 [
     {
-        "label": "torch",
+        "label": "gym",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "torch",
-        "description": "torch",
-        "detail": "torch",
+        "importPath": "gym",
+        "description": "gym",
+        "detail": "gym",
+        "documentation": {}
+    },
+    {
+        "label": "random",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "random",
+        "description": "random",
+        "detail": "random",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "tensorflow",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "tensorflow",
+        "description": "tensorflow",
+        "detail": "tensorflow",
+        "documentation": {}
+    },
+    {
+        "label": "deque",
+        "importPath": "collections",
+        "description": "collections",
+        "isExtraImport": true,
+        "detail": "collections",
+        "documentation": {}
+    },
+    {
+        "label": "cv2",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "cv2",
+        "description": "cv2",
+        "detail": "cv2",
+        "documentation": {}
+    },
+    {
+        "label": "matplotlib.pyplot",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "matplotlib.pyplot",
+        "description": "matplotlib.pyplot",
+        "detail": "matplotlib.pyplot",
+        "documentation": {}
+    },
+    {
+        "label": "DQNAgent",
+        "kind": 6,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "class DQNAgent:\n    def __init__(self, action_size):\n        self.action_size = action_size\n        self.memory = deque(maxlen=MEMORY_SIZE)\n        self.epsilon = EPSILON_START\n        print(\"[DEBUG] Initializing DQN agent with action size:\", action_size)\n        self.model = self.build_model()\n        self.target_model = self.build_model()\n        self.update_target_model()\n        print(\"[DEBUG] DQN agent initialized successfully.\")",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "preprocess_frame",
+        "kind": 2,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "def preprocess_frame(frame):\n    gray_frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)\n    resized_frame = cv2.resize(gray_frame, (84, 84), interpolation=cv2.INTER_AREA)\n    return resized_frame / 255.0\n# Deep Q-Network with Debugging Prints\nclass DQNAgent:\n    def __init__(self, action_size):\n        self.action_size = action_size\n        self.memory = deque(maxlen=MEMORY_SIZE)\n        self.epsilon = EPSILON_START",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "train_agent",
+        "kind": 2,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "def train_agent(env):\n    agent = DQNAgent(action_size=env.action_space.n)\n    scores = []\n    for e in range(TRAINING_EPISODES):\n        print(f\"\\n[DEBUG] Starting episode {e+1}/{TRAINING_EPISODES}\")\n        state = preprocess_frame(env.reset())\n        state = np.stack([state] * 4, axis=2)  # Stack 4 frames\n        total_reward = 0\n        for time in range(MAX_STEPS_PER_EPISODE):\n            action = agent.act(state)",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "render_game",
+        "kind": 2,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "def render_game(agent, env):\n    print(\"[DEBUG] Starting game rendering.\")\n    state = preprocess_frame(env.reset())\n    state = np.stack([state] * 4, axis=2)\n    for _ in range(MAX_STEPS_PER_EPISODE):\n        action = agent.act(state)\n        next_frame, _, done, _ = env.step(action)\n        env.render()  # Display the game\n        next_state = preprocess_frame(next_frame)\n        next_state = np.stack([next_state] * 4, axis=2)",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "MEMORY_SIZE",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "MEMORY_SIZE = 10000\nBATCH_SIZE = 32\nGAMMA = 0.99\nEPSILON_START = 1.0\nEPSILON_END = 0.1\nEPSILON_DECAY = 1000000\nTARGET_UPDATE_FREQUENCY = 1000\nTRAINING_EPISODES = 10000\nMAX_STEPS_PER_EPISODE = 500\nREPLAY_START_SIZE = 1000",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "BATCH_SIZE",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "BATCH_SIZE = 32\nGAMMA = 0.99\nEPSILON_START = 1.0\nEPSILON_END = 0.1\nEPSILON_DECAY = 1000000\nTARGET_UPDATE_FREQUENCY = 1000\nTRAINING_EPISODES = 10000\nMAX_STEPS_PER_EPISODE = 500\nREPLAY_START_SIZE = 1000\nLEARNING_RATE = 0.00025",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "GAMMA",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "GAMMA = 0.99\nEPSILON_START = 1.0\nEPSILON_END = 0.1\nEPSILON_DECAY = 1000000\nTARGET_UPDATE_FREQUENCY = 1000\nTRAINING_EPISODES = 10000\nMAX_STEPS_PER_EPISODE = 500\nREPLAY_START_SIZE = 1000\nLEARNING_RATE = 0.00025\n# Preprocess frames to grayscale and resize",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "EPSILON_START",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "EPSILON_START = 1.0\nEPSILON_END = 0.1\nEPSILON_DECAY = 1000000\nTARGET_UPDATE_FREQUENCY = 1000\nTRAINING_EPISODES = 10000\nMAX_STEPS_PER_EPISODE = 500\nREPLAY_START_SIZE = 1000\nLEARNING_RATE = 0.00025\n# Preprocess frames to grayscale and resize\ndef preprocess_frame(frame):",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "EPSILON_END",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "EPSILON_END = 0.1\nEPSILON_DECAY = 1000000\nTARGET_UPDATE_FREQUENCY = 1000\nTRAINING_EPISODES = 10000\nMAX_STEPS_PER_EPISODE = 500\nREPLAY_START_SIZE = 1000\nLEARNING_RATE = 0.00025\n# Preprocess frames to grayscale and resize\ndef preprocess_frame(frame):\n    gray_frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "EPSILON_DECAY",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "EPSILON_DECAY = 1000000\nTARGET_UPDATE_FREQUENCY = 1000\nTRAINING_EPISODES = 10000\nMAX_STEPS_PER_EPISODE = 500\nREPLAY_START_SIZE = 1000\nLEARNING_RATE = 0.00025\n# Preprocess frames to grayscale and resize\ndef preprocess_frame(frame):\n    gray_frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)\n    resized_frame = cv2.resize(gray_frame, (84, 84), interpolation=cv2.INTER_AREA)",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "TARGET_UPDATE_FREQUENCY",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "TARGET_UPDATE_FREQUENCY = 1000\nTRAINING_EPISODES = 10000\nMAX_STEPS_PER_EPISODE = 500\nREPLAY_START_SIZE = 1000\nLEARNING_RATE = 0.00025\n# Preprocess frames to grayscale and resize\ndef preprocess_frame(frame):\n    gray_frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)\n    resized_frame = cv2.resize(gray_frame, (84, 84), interpolation=cv2.INTER_AREA)\n    return resized_frame / 255.0",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "TRAINING_EPISODES",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "TRAINING_EPISODES = 10000\nMAX_STEPS_PER_EPISODE = 500\nREPLAY_START_SIZE = 1000\nLEARNING_RATE = 0.00025\n# Preprocess frames to grayscale and resize\ndef preprocess_frame(frame):\n    gray_frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)\n    resized_frame = cv2.resize(gray_frame, (84, 84), interpolation=cv2.INTER_AREA)\n    return resized_frame / 255.0\n# Deep Q-Network with Debugging Prints",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "MAX_STEPS_PER_EPISODE",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "MAX_STEPS_PER_EPISODE = 500\nREPLAY_START_SIZE = 1000\nLEARNING_RATE = 0.00025\n# Preprocess frames to grayscale and resize\ndef preprocess_frame(frame):\n    gray_frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)\n    resized_frame = cv2.resize(gray_frame, (84, 84), interpolation=cv2.INTER_AREA)\n    return resized_frame / 255.0\n# Deep Q-Network with Debugging Prints\nclass DQNAgent:",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "REPLAY_START_SIZE",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "REPLAY_START_SIZE = 1000\nLEARNING_RATE = 0.00025\n# Preprocess frames to grayscale and resize\ndef preprocess_frame(frame):\n    gray_frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)\n    resized_frame = cv2.resize(gray_frame, (84, 84), interpolation=cv2.INTER_AREA)\n    return resized_frame / 255.0\n# Deep Q-Network with Debugging Prints\nclass DQNAgent:\n    def __init__(self, action_size):",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "LEARNING_RATE",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "LEARNING_RATE = 0.00025\n# Preprocess frames to grayscale and resize\ndef preprocess_frame(frame):\n    gray_frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)\n    resized_frame = cv2.resize(gray_frame, (84, 84), interpolation=cv2.INTER_AREA)\n    return resized_frame / 255.0\n# Deep Q-Network with Debugging Prints\nclass DQNAgent:\n    def __init__(self, action_size):\n        self.action_size = action_size",
+        "detail": "test",
         "documentation": {}
     }
 ]
