@@ -62,6 +62,23 @@
         "documentation": {}
     },
     {
+        "label": "Display",
+        "importPath": "pyvirtualdisplay",
+        "description": "pyvirtualdisplay",
+        "isExtraImport": true,
+        "detail": "pyvirtualdisplay",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
+        "documentation": {}
+    },
+    {
         "label": "DQNAgent",
         "kind": 6,
         "importPath": "test",
@@ -194,6 +211,24 @@
         "description": "test",
         "peekOfCode": "LEARNING_RATE = 0.00025\n# Preprocess frames to grayscale and resize\ndef preprocess_frame(frame):\n    gray_frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)\n    resized_frame = cv2.resize(gray_frame, (84, 84), interpolation=cv2.INTER_AREA)\n    return resized_frame / 255.0\n# Deep Q-Network with Debugging Prints\nclass DQNAgent:\n    def __init__(self, action_size):\n        self.action_size = action_size",
         "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "start_time",
+        "kind": 5,
+        "importPath": "test2",
+        "description": "test2",
+        "peekOfCode": "start_time = time.time()\ntry:\n    print(\"Initializing Display object...\")\n    display = Display(visible=0, size=(1400, 900))\n    print(\"Starting Display...\")\n    display.start()\n    print(\"Virtual display started.\")\nexcept Exception as e:\n    print(f\"An error occurred: {e}\")\n# End the timer and print the elapsed time",
+        "detail": "test2",
+        "documentation": {}
+    },
+    {
+        "label": "end_time",
+        "kind": 5,
+        "importPath": "test2",
+        "description": "test2",
+        "peekOfCode": "end_time = time.time()\nprint(f\"Virtual display setup completed in {end_time - start_time:.2f} seconds.\")",
+        "detail": "test2",
         "documentation": {}
     }
 ]
