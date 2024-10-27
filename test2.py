@@ -1,20 +1,8 @@
-from pyvirtualdisplay import Display
-import time
+import tensorflow as tf
 
-print("Starting virtual display setup...")
+# Check for GPU availability
+print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
+print("TensorFlow version: ", tf.__version__)
 
-# Start the timer to measure how long the setup takes
-start_time = time.time()
-
-try:
-    print("Initializing Display object...")
-    display = Display(visible=0, size=(1400, 900))
-    print("Starting Display...")
-    display.start()
-    print("Virtual display started.")
-except Exception as e:
-    print(f"An error occurred: {e}")
-
-# End the timer and print the elapsed time
-end_time = time.time()
-print(f"Virtual display setup completed in {end_time - start_time:.2f} seconds.")
+import gym
+print(gym.__version__)
