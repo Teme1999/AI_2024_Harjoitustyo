@@ -36,6 +36,30 @@
         "documentation": {}
     },
     {
+        "label": "models",
+        "importPath": "tensorflow.keras",
+        "description": "tensorflow.keras",
+        "isExtraImport": true,
+        "detail": "tensorflow.keras",
+        "documentation": {}
+    },
+    {
+        "label": "layers",
+        "importPath": "tensorflow.keras",
+        "description": "tensorflow.keras",
+        "isExtraImport": true,
+        "detail": "tensorflow.keras",
+        "documentation": {}
+    },
+    {
+        "label": "optimizers",
+        "importPath": "tensorflow.keras",
+        "description": "tensorflow.keras",
+        "isExtraImport": true,
+        "detail": "tensorflow.keras",
+        "documentation": {}
+    },
+    {
         "label": "deque",
         "importPath": "collections",
         "description": "collections",
@@ -44,12 +68,11 @@
         "documentation": {}
     },
     {
-        "label": "cv2",
-        "kind": 6,
+        "label": "deque",
+        "importPath": "collections",
+        "description": "collections",
         "isExtraImport": true,
-        "importPath": "cv2",
-        "description": "cv2",
-        "detail": "cv2",
+        "detail": "collections",
         "documentation": {}
     },
     {
@@ -59,6 +82,33 @@
         "importPath": "matplotlib.pyplot",
         "description": "matplotlib.pyplot",
         "detail": "matplotlib.pyplot",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "pickle",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pickle",
+        "description": "pickle",
+        "detail": "pickle",
+        "documentation": {}
+    },
+    {
+        "label": "cv2",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "cv2",
+        "description": "cv2",
+        "detail": "cv2",
         "documentation": {}
     },
     {
@@ -76,6 +126,96 @@
         "importPath": "time",
         "description": "time",
         "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "DQNAgent",
+        "kind": 6,
+        "importPath": "cartpole",
+        "description": "cartpole",
+        "peekOfCode": "class DQNAgent:\n    def __init__(self, state_size, action_size):\n        self.state_size = state_size\n        self.action_size = action_size\n        # Hyperparameters\n        self.gamma = 0.95           # Discount factor\n        self.epsilon = 1.0          # Exploration rate\n        self.epsilon_min = 0.01     # Minimum exploration rate\n        self.epsilon_decay = 0.995  # Exploration decay rate\n        self.learning_rate = 0.001",
+        "detail": "cartpole",
+        "documentation": {}
+    },
+    {
+        "label": "env",
+        "kind": 5,
+        "importPath": "cartpole",
+        "description": "cartpole",
+        "peekOfCode": "env = gym.make('CartPole-v1')\nstate_size = env.observation_space.shape[0]  # Should be 4\naction_size = env.action_space.n  # Should be 2\n# Define the DQNAgent class\nclass DQNAgent:\n    def __init__(self, state_size, action_size):\n        self.state_size = state_size\n        self.action_size = action_size\n        # Hyperparameters\n        self.gamma = 0.95           # Discount factor",
+        "detail": "cartpole",
+        "documentation": {}
+    },
+    {
+        "label": "state_size",
+        "kind": 5,
+        "importPath": "cartpole",
+        "description": "cartpole",
+        "peekOfCode": "state_size = env.observation_space.shape[0]  # Should be 4\naction_size = env.action_space.n  # Should be 2\n# Define the DQNAgent class\nclass DQNAgent:\n    def __init__(self, state_size, action_size):\n        self.state_size = state_size\n        self.action_size = action_size\n        # Hyperparameters\n        self.gamma = 0.95           # Discount factor\n        self.epsilon = 1.0          # Exploration rate",
+        "detail": "cartpole",
+        "documentation": {}
+    },
+    {
+        "label": "action_size",
+        "kind": 5,
+        "importPath": "cartpole",
+        "description": "cartpole",
+        "peekOfCode": "action_size = env.action_space.n  # Should be 2\n# Define the DQNAgent class\nclass DQNAgent:\n    def __init__(self, state_size, action_size):\n        self.state_size = state_size\n        self.action_size = action_size\n        # Hyperparameters\n        self.gamma = 0.95           # Discount factor\n        self.epsilon = 1.0          # Exploration rate\n        self.epsilon_min = 0.01     # Minimum exploration rate",
+        "detail": "cartpole",
+        "documentation": {}
+    },
+    {
+        "label": "agent",
+        "kind": 5,
+        "importPath": "cartpole",
+        "description": "cartpole",
+        "peekOfCode": "agent = DQNAgent(state_size, action_size)\n# Training parameters\nepisodes = 1000\noutput_dir = 'model_output/cartpole_dqn/'\nif not os.path.exists(output_dir):\n    os.makedirs(output_dir)\n# To store rewards for visualization\nrewards_list = []\n# Load previous training state if available\nresume_training = True  # Set to True if you want to resume training",
+        "detail": "cartpole",
+        "documentation": {}
+    },
+    {
+        "label": "episodes",
+        "kind": 5,
+        "importPath": "cartpole",
+        "description": "cartpole",
+        "peekOfCode": "episodes = 1000\noutput_dir = 'model_output/cartpole_dqn/'\nif not os.path.exists(output_dir):\n    os.makedirs(output_dir)\n# To store rewards for visualization\nrewards_list = []\n# Load previous training state if available\nresume_training = True  # Set to True if you want to resume training\ncheckpoint_name = output_dir + 'checkpoint'\nif resume_training and os.path.isfile(checkpoint_name + '_model.h5'):",
+        "detail": "cartpole",
+        "documentation": {}
+    },
+    {
+        "label": "output_dir",
+        "kind": 5,
+        "importPath": "cartpole",
+        "description": "cartpole",
+        "peekOfCode": "output_dir = 'model_output/cartpole_dqn/'\nif not os.path.exists(output_dir):\n    os.makedirs(output_dir)\n# To store rewards for visualization\nrewards_list = []\n# Load previous training state if available\nresume_training = True  # Set to True if you want to resume training\ncheckpoint_name = output_dir + 'checkpoint'\nif resume_training and os.path.isfile(checkpoint_name + '_model.h5'):\n    agent.load(checkpoint_name)",
+        "detail": "cartpole",
+        "documentation": {}
+    },
+    {
+        "label": "rewards_list",
+        "kind": 5,
+        "importPath": "cartpole",
+        "description": "cartpole",
+        "peekOfCode": "rewards_list = []\n# Load previous training state if available\nresume_training = True  # Set to True if you want to resume training\ncheckpoint_name = output_dir + 'checkpoint'\nif resume_training and os.path.isfile(checkpoint_name + '_model.h5'):\n    agent.load(checkpoint_name)\n    with open(output_dir + 'rewards_list.pkl', 'rb') as f:\n        rewards_list = pickle.load(f)\n    starting_episode = len(rewards_list)\n    print(f\"Resuming training from episode {starting_episode}\")",
+        "detail": "cartpole",
+        "documentation": {}
+    },
+    {
+        "label": "resume_training",
+        "kind": 5,
+        "importPath": "cartpole",
+        "description": "cartpole",
+        "peekOfCode": "resume_training = True  # Set to True if you want to resume training\ncheckpoint_name = output_dir + 'checkpoint'\nif resume_training and os.path.isfile(checkpoint_name + '_model.h5'):\n    agent.load(checkpoint_name)\n    with open(output_dir + 'rewards_list.pkl', 'rb') as f:\n        rewards_list = pickle.load(f)\n    starting_episode = len(rewards_list)\n    print(f\"Resuming training from episode {starting_episode}\")\nelse:\n    starting_episode = 0",
+        "detail": "cartpole",
+        "documentation": {}
+    },
+    {
+        "label": "checkpoint_name",
+        "kind": 5,
+        "importPath": "cartpole",
+        "description": "cartpole",
+        "peekOfCode": "checkpoint_name = output_dir + 'checkpoint'\nif resume_training and os.path.isfile(checkpoint_name + '_model.h5'):\n    agent.load(checkpoint_name)\n    with open(output_dir + 'rewards_list.pkl', 'rb') as f:\n        rewards_list = pickle.load(f)\n    starting_episode = len(rewards_list)\n    print(f\"Resuming training from episode {starting_episode}\")\nelse:\n    starting_episode = 0\n# Training loop",
+        "detail": "cartpole",
         "documentation": {}
     },
     {
