@@ -10,13 +10,13 @@ class DQNAgent:
     def __init__(self, state_size, action_size, load_model=False, model_path='dqn_cartpole.keras'):
         self.state_size = state_size
         self.action_size = action_size
-        self.memory = deque(maxlen=2000)
+        self.memory = deque(maxlen=5000)
         
-        self.gamma = 0.95    # discount rate
+        self.gamma = 0.90    # discount rate
         self.epsilon = 1.0   # exploration rate
         self.epsilon_min = 0.01
-        self.epsilon_decay = 0.995
-        self.learning_rate = 0.001
+        self.epsilon_decay = 0.99
+        self.learning_rate = 0.0005
 
         self.model_path = model_path
         
@@ -30,8 +30,9 @@ class DQNAgent:
     def _build_model(self):
         # Neural Net for Deep-Q learning Model
         model = models.Sequential()
-        model.add(layers.Dense(24, input_dim=self.state_size, activation='relu'))
-        model.add(layers.Dense(24, activation='relu'))
+        model.add(layers.Dense(128, input_dim=self.state_size, activation='relu'))
+        model.add(layers.Dense(128, activation='relu'))
+        model.add(layers.Dense(64, activation='relu'))
         model.add(layers.Dense(self.action_size, activation='linear'))
         model.compile(loss='mse',
                       optimizer=optimizers.Adam(learning_rate=self.learning_rate))
@@ -78,7 +79,7 @@ def train_dqn(continue_training=False):
     action_size = env.action_space.n
     agent = DQNAgent(state_size, action_size, load_model=continue_training)
     done = False
-    batch_size = 32
+    batch_size = 64
     EPISODES = 500  # Maximum number of episodes to train
 
     # Early stopping parameters
@@ -96,7 +97,7 @@ def train_dqn(continue_training=False):
             # env.render()  # Uncomment to render training
             action = agent.act(state)
             next_state, reward, done, truncated, _ = env.step(action)
-            reward = reward if not done else -10
+            reward = reward if not done else -1
             total_reward += reward  # Accumulate reward
             next_state = np.reshape(next_state, [1, state_size])
             agent.remember(state, action, reward, next_state, done)

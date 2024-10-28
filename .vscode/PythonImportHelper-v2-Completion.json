@@ -1,11 +1,11 @@
 [
     {
-        "label": "gymnasium",
+        "label": "numpy",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "gymnasium",
-        "description": "gymnasium",
-        "detail": "gymnasium",
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
         "documentation": {}
     },
     {
@@ -18,12 +18,28 @@
         "documentation": {}
     },
     {
-        "label": "numpy",
+        "label": "deque",
+        "importPath": "collections",
+        "description": "collections",
+        "isExtraImport": true,
+        "detail": "collections",
+        "documentation": {}
+    },
+    {
+        "label": "deque",
+        "importPath": "collections",
+        "description": "collections",
+        "isExtraImport": true,
+        "detail": "collections",
+        "documentation": {}
+    },
+    {
+        "label": "gymnasium",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "numpy",
-        "description": "numpy",
-        "detail": "numpy",
+        "importPath": "gymnasium",
+        "description": "gymnasium",
+        "detail": "gymnasium",
         "documentation": {}
     },
     {
@@ -37,51 +53,34 @@
     },
     {
         "label": "models",
-        "importPath": "tensorflow.keras",
-        "description": "tensorflow.keras",
+        "importPath": "keras",
+        "description": "keras",
         "isExtraImport": true,
-        "detail": "tensorflow.keras",
+        "detail": "keras",
         "documentation": {}
     },
     {
         "label": "layers",
-        "importPath": "tensorflow.keras",
-        "description": "tensorflow.keras",
+        "importPath": "keras",
+        "description": "keras",
         "isExtraImport": true,
-        "detail": "tensorflow.keras",
+        "detail": "keras",
         "documentation": {}
     },
     {
         "label": "optimizers",
-        "importPath": "tensorflow.keras",
-        "description": "tensorflow.keras",
+        "importPath": "keras",
+        "description": "keras",
         "isExtraImport": true,
-        "detail": "tensorflow.keras",
+        "detail": "keras",
         "documentation": {}
     },
     {
-        "label": "deque",
-        "importPath": "collections",
-        "description": "collections",
+        "label": "models",
+        "importPath": "keras",
+        "description": "keras",
         "isExtraImport": true,
-        "detail": "collections",
-        "documentation": {}
-    },
-    {
-        "label": "deque",
-        "importPath": "collections",
-        "description": "collections",
-        "isExtraImport": true,
-        "detail": "collections",
-        "documentation": {}
-    },
-    {
-        "label": "matplotlib.pyplot",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "matplotlib.pyplot",
-        "description": "matplotlib.pyplot",
-        "detail": "matplotlib.pyplot",
+        "detail": "keras",
         "documentation": {}
     },
     {
@@ -94,12 +93,30 @@
         "documentation": {}
     },
     {
-        "label": "pickle",
+        "label": "matplotlib.pyplot",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "pickle",
-        "description": "pickle",
-        "detail": "pickle",
+        "importPath": "matplotlib.pyplot",
+        "description": "matplotlib.pyplot",
+        "detail": "matplotlib.pyplot",
+        "documentation": {}
+    },
+    {
+        "label": "matplotlib",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "matplotlib",
+        "description": "matplotlib",
+        "detail": "matplotlib",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
         "documentation": {}
     },
     {
@@ -123,100 +140,37 @@
     {
         "label": "DQNAgent",
         "kind": 6,
-        "importPath": "cartpole",
-        "description": "cartpole",
-        "peekOfCode": "class DQNAgent:\n    def __init__(self, state_size, action_size):\n        self.state_size = state_size\n        self.action_size = action_size\n        # Hyperparameters\n        self.gamma = 0.95           # Discount factor\n        self.epsilon = 1.0          # Exploration rate\n        self.epsilon_min = 0.01     # Minimum exploration rate\n        self.epsilon_decay = 0.995  # Exploration decay rate\n        self.learning_rate = 0.001",
-        "detail": "cartpole",
+        "importPath": "cartpole_train",
+        "description": "cartpole_train",
+        "peekOfCode": "class DQNAgent:\n    def __init__(self, state_size, action_size, load_model=False, model_path='dqn_cartpole.keras'):\n        self.state_size = state_size\n        self.action_size = action_size\n        self.memory = deque(maxlen=5000)\n        self.gamma = 0.90    # discount rate\n        self.epsilon = 1.0   # exploration rate\n        self.epsilon_min = 0.01\n        self.epsilon_decay = 0.99\n        self.learning_rate = 0.0005",
+        "detail": "cartpole_train",
         "documentation": {}
     },
     {
-        "label": "env_name",
-        "kind": 5,
-        "importPath": "cartpole",
-        "description": "cartpole",
-        "peekOfCode": "env_name = 'CartPole-v1'\nenv = gym.make(env_name)\nstate_size = env.observation_space.shape[0]  # Should be 4\naction_size = env.action_space.n  # Should be 2\n# Define the DQNAgent class\nclass DQNAgent:\n    def __init__(self, state_size, action_size):\n        self.state_size = state_size\n        self.action_size = action_size\n        # Hyperparameters",
-        "detail": "cartpole",
+        "label": "train_dqn",
+        "kind": 2,
+        "importPath": "cartpole_train",
+        "description": "cartpole_train",
+        "peekOfCode": "def train_dqn(continue_training=False):\n    env = gym.make('CartPole-v1')\n    state_size = env.observation_space.shape[0]\n    action_size = env.action_space.n\n    agent = DQNAgent(state_size, action_size, load_model=continue_training)\n    done = False\n    batch_size = 64\n    EPISODES = 500  # Maximum number of episodes to train\n    # Early stopping parameters\n    max_score = 500  # Maximum possible score in CartPole-v1",
+        "detail": "cartpole_train",
         "documentation": {}
     },
     {
-        "label": "env",
-        "kind": 5,
-        "importPath": "cartpole",
-        "description": "cartpole",
-        "peekOfCode": "env = gym.make(env_name)\nstate_size = env.observation_space.shape[0]  # Should be 4\naction_size = env.action_space.n  # Should be 2\n# Define the DQNAgent class\nclass DQNAgent:\n    def __init__(self, state_size, action_size):\n        self.state_size = state_size\n        self.action_size = action_size\n        # Hyperparameters\n        self.gamma = 0.95           # Discount factor",
-        "detail": "cartpole",
+        "label": "visualize_rewards",
+        "kind": 2,
+        "importPath": "cartpole_visualise",
+        "description": "cartpole_visualise",
+        "peekOfCode": "def visualize_rewards():\n    # Load rewards per episode from the saved file\n    rewards_per_episode = np.load('rewards_per_episode.npy')\n    EPISODES = len(rewards_per_episode)\n    # Plot the total rewards per episode\n    plt.figure(figsize=(12, 6))\n    plt.plot(range(1, EPISODES + 1), rewards_per_episode)\n    plt.xlabel('Episode')\n    plt.ylabel('Total Reward')\n    plt.title('Agent Performance over Episodes during Training')",
+        "detail": "cartpole_visualise",
         "documentation": {}
     },
     {
-        "label": "state_size",
-        "kind": 5,
-        "importPath": "cartpole",
-        "description": "cartpole",
-        "peekOfCode": "state_size = env.observation_space.shape[0]  # Should be 4\naction_size = env.action_space.n  # Should be 2\n# Define the DQNAgent class\nclass DQNAgent:\n    def __init__(self, state_size, action_size):\n        self.state_size = state_size\n        self.action_size = action_size\n        # Hyperparameters\n        self.gamma = 0.95           # Discount factor\n        self.epsilon = 1.0          # Exploration rate",
-        "detail": "cartpole",
-        "documentation": {}
-    },
-    {
-        "label": "action_size",
-        "kind": 5,
-        "importPath": "cartpole",
-        "description": "cartpole",
-        "peekOfCode": "action_size = env.action_space.n  # Should be 2\n# Define the DQNAgent class\nclass DQNAgent:\n    def __init__(self, state_size, action_size):\n        self.state_size = state_size\n        self.action_size = action_size\n        # Hyperparameters\n        self.gamma = 0.95           # Discount factor\n        self.epsilon = 1.0          # Exploration rate\n        self.epsilon_min = 0.01     # Minimum exploration rate",
-        "detail": "cartpole",
-        "documentation": {}
-    },
-    {
-        "label": "load_model",
-        "kind": 5,
-        "importPath": "cartpole",
-        "description": "cartpole",
-        "peekOfCode": "load_model = True  # Set to True to load a model, False to train a new one\n# Training parameters\nepisodes = 1000\noutput_dir = 'model_output/cartpole_dqn/'\nif not os.path.exists(output_dir):\n    os.makedirs(output_dir)\nagent = DQNAgent(state_size, action_size)\nif load_model:\n    # Load the trained model\n    checkpoint_name = output_dir + 'checkpoint'",
-        "detail": "cartpole",
-        "documentation": {}
-    },
-    {
-        "label": "episodes",
-        "kind": 5,
-        "importPath": "cartpole",
-        "description": "cartpole",
-        "peekOfCode": "episodes = 1000\noutput_dir = 'model_output/cartpole_dqn/'\nif not os.path.exists(output_dir):\n    os.makedirs(output_dir)\nagent = DQNAgent(state_size, action_size)\nif load_model:\n    # Load the trained model\n    checkpoint_name = output_dir + 'checkpoint'\n    if os.path.isfile(checkpoint_name + '_model.h5'):\n        agent.load(checkpoint_name)",
-        "detail": "cartpole",
-        "documentation": {}
-    },
-    {
-        "label": "output_dir",
-        "kind": 5,
-        "importPath": "cartpole",
-        "description": "cartpole",
-        "peekOfCode": "output_dir = 'model_output/cartpole_dqn/'\nif not os.path.exists(output_dir):\n    os.makedirs(output_dir)\nagent = DQNAgent(state_size, action_size)\nif load_model:\n    # Load the trained model\n    checkpoint_name = output_dir + 'checkpoint'\n    if os.path.isfile(checkpoint_name + '_model.h5'):\n        agent.load(checkpoint_name)\n        print(\"Loaded model from checkpoint.\")",
-        "detail": "cartpole",
-        "documentation": {}
-    },
-    {
-        "label": "agent",
-        "kind": 5,
-        "importPath": "cartpole",
-        "description": "cartpole",
-        "peekOfCode": "agent = DQNAgent(state_size, action_size)\nif load_model:\n    # Load the trained model\n    checkpoint_name = output_dir + 'checkpoint'\n    if os.path.isfile(checkpoint_name + '_model.h5'):\n        agent.load(checkpoint_name)\n        print(\"Loaded model from checkpoint.\")\n    else:\n        print(\"No saved model found at checkpoint. Starting training a new model.\")\n        load_model = False",
-        "detail": "cartpole",
-        "documentation": {}
-    },
-    {
-        "label": "rewards_list",
-        "kind": 5,
-        "importPath": "cartpole",
-        "description": "cartpole",
-        "peekOfCode": "rewards_list = []\nif not load_model:\n    # Training loop\n    for e in range(episodes):\n        state, _ = env.reset()\n        state = np.reshape(state, [1, state_size])\n        total_reward = 0\n        for time in range(500):\n            action = agent.act(state)\n            next_state, reward, terminated, truncated, _ = env.step(action)",
-        "detail": "cartpole",
-        "documentation": {}
-    },
-    {
-        "label": "env",
-        "kind": 5,
-        "importPath": "cartpole",
-        "description": "cartpole",
-        "peekOfCode": "env = gym.make(env_name, render_mode='human')\nfor e in range(5):\n    state, _ = env.reset()\n    state = np.reshape(state, [1, state_size])\n    total_reward = 0\n    for time in range(500):\n        env.render()\n        action = np.argmax(agent.model.predict(state, verbose=0)[0])\n        next_state, reward, terminated, truncated, _ = env.step(action)\n        done = terminated or truncated",
-        "detail": "cartpole",
+        "label": "run_agent_episodes",
+        "kind": 2,
+        "importPath": "cartpole_visualise",
+        "description": "cartpole_visualise",
+        "peekOfCode": "def run_agent_episodes():\n    # Load the trained model\n    model_path = 'dqn_cartpole.keras'\n    if not os.path.exists(model_path):\n        model_path = 'dqn_cartpole_weights.h5f'  # Try the weights file\n    if os.path.exists(model_path):\n        model = models.load_model(model_path)\n        print(f\"Loaded model from {model_path}\")\n    else:\n        print(\"Trained model not found. Please ensure the model is saved as 'dqn_cartpole.keras' or 'dqn_cartpole_weights.h5f'.\")",
+        "detail": "cartpole_visualise",
         "documentation": {}
     },
     {
