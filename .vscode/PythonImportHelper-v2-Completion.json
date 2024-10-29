@@ -142,7 +142,7 @@
         "kind": 6,
         "importPath": "cartpole_train",
         "description": "cartpole_train",
-        "peekOfCode": "class DQNAgent:\n    def __init__(self, state_size, action_size, load_model=False, model_path='dqn_cartpole.keras'):\n        self.state_size = state_size\n        self.action_size = action_size\n        self.memory = deque(maxlen=5000)\n        self.gamma = 0.90    # discount rate\n        self.epsilon = 1.0   # exploration rate\n        self.epsilon_min = 0.01\n        self.epsilon_decay = 0.99\n        self.learning_rate = 0.0005",
+        "peekOfCode": "class DQNAgent:\n    def __init__(self, state_size, action_size, load_model=False, model_path='dqn_cartpole.keras'):\n        self.state_size = state_size\n        self.action_size = action_size\n        self.memory = deque(maxlen=5000)  # Increased memory size for better replay\n        self.gamma = 0.90    # Modified discount rate\n        self.epsilon = 1.0   # Exploration rate\n        self.epsilon_min = 0.01\n        self.epsilon_decay = 0.99  # Slower decay for more exploration\n        self.learning_rate = 0.0005  # Lower learning rate for smoother convergence",
         "detail": "cartpole_train",
         "documentation": {}
     },
@@ -151,7 +151,7 @@
         "kind": 2,
         "importPath": "cartpole_train",
         "description": "cartpole_train",
-        "peekOfCode": "def train_dqn(continue_training=False):\n    env = gym.make('CartPole-v1')\n    state_size = env.observation_space.shape[0]\n    action_size = env.action_space.n\n    agent = DQNAgent(state_size, action_size, load_model=continue_training)\n    done = False\n    batch_size = 64\n    EPISODES = 500  # Maximum number of episodes to train\n    # Early stopping parameters\n    max_score = 500  # Maximum possible score in CartPole-v1",
+        "peekOfCode": "def train_dqn(continue_training=False):\n    env = gym.make('CartPole-v1')\n    state_size = env.observation_space.shape[0]\n    action_size = env.action_space.n\n    agent = DQNAgent(state_size, action_size, load_model=continue_training)\n    done = False\n    batch_size = 64  # Increased batch size for more stable training\n    EPISODES = 500  # Maximum number of episodes to train\n    # Load rewards and determine starting episode if continuing training\n    if continue_training and os.path.exists('rewards_per_episode.npy'):",
         "detail": "cartpole_train",
         "documentation": {}
     },

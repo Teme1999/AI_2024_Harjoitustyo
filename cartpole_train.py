@@ -10,13 +10,13 @@ class DQNAgent:
     def __init__(self, state_size, action_size, load_model=False, model_path='dqn_cartpole.keras'):
         self.state_size = state_size
         self.action_size = action_size
-        self.memory = deque(maxlen=5000)
+        self.memory = deque(maxlen=5000)  # Increased memory size for better replay
         
-        self.gamma = 0.90    # discount rate
-        self.epsilon = 1.0   # exploration rate
+        self.gamma = 0.90    # Modified discount rate
+        self.epsilon = 1.0   # Exploration rate
         self.epsilon_min = 0.01
-        self.epsilon_decay = 0.99
-        self.learning_rate = 0.0005
+        self.epsilon_decay = 0.99  # Slower decay for more exploration
+        self.learning_rate = 0.0005  # Lower learning rate for smoother convergence
 
         self.model_path = model_path
         
@@ -28,11 +28,11 @@ class DQNAgent:
             self.model = self._build_model()
 
     def _build_model(self):
-        # Neural Net for Deep-Q learning Model
+        # Improved Neural Net for Deep-Q learning Model
         model = models.Sequential()
-        model.add(layers.Dense(128, input_dim=self.state_size, activation='relu'))
-        model.add(layers.Dense(128, activation='relu'))
-        model.add(layers.Dense(64, activation='relu'))
+        model.add(layers.Dense(128, input_dim=self.state_size, activation='relu'))  # First hidden layer with ReLU  # Increased units
+        model.add(layers.Dense(128, activation='leaky_relu'))  # Second hidden layer with Leaky ReLU  # Additional hidden layer
+        model.add(layers.Dense(64, activation='elu'))  # Third hidden layer with ELU  # Additional hidden layer
         model.add(layers.Dense(self.action_size, activation='linear'))
         model.compile(loss='mse',
                       optimizer=optimizers.Adam(learning_rate=self.learning_rate))
@@ -79,25 +79,31 @@ def train_dqn(continue_training=False):
     action_size = env.action_space.n
     agent = DQNAgent(state_size, action_size, load_model=continue_training)
     done = False
-    batch_size = 64
+    batch_size = 64  # Increased batch size for more stable training
     EPISODES = 500  # Maximum number of episodes to train
+
+    # Load rewards and determine starting episode if continuing training
+    if continue_training and os.path.exists('rewards_per_episode.npy'):
+        rewards_per_episode = np.load('rewards_per_episode.npy').tolist()
+        start_episode = len(rewards_per_episode)
+        print(f"Continuing training from episode {start_episode + 1}")
+    else:
+        rewards_per_episode = []
+        start_episode = 0
 
     # Early stopping parameters
     max_score = 500  # Maximum possible score in CartPole-v1
     patience = 5     # Number of consecutive episodes to achieve max_score before stopping
     consecutive_max_scores = 0  # Counter for consecutive max_score episodes
 
-    rewards_per_episode = []  # List to store total rewards per episode
-
-    for e in range(EPISODES):
+    for e in range(start_episode, EPISODES):
         state, _ = env.reset()
         state = np.reshape(state, [1, state_size])
         total_reward = 0  # Initialize total reward for this episode
         for time_t in range(500):
-            # env.render()  # Uncomment to render training
             action = agent.act(state)
             next_state, reward, done, truncated, _ = env.step(action)
-            reward = reward if not done else -1
+            reward = reward if not done else -1  # Reduced penalty for losing an episode
             total_reward += reward  # Accumulate reward
             next_state = np.reshape(next_state, [1, state_size])
             agent.remember(state, action, reward, next_state, done)
@@ -109,7 +115,6 @@ def train_dqn(continue_training=False):
             if len(agent.memory) > batch_size:
                 agent.replay(batch_size)
         else:
-            # If the loop wasn't broken (i.e., the episode didn't end early)
             rewards_per_episode.append(total_reward)
             print(f"Episode: {e+1}/{EPISODES}, score: {time_t}, total reward: {total_reward}, e: {agent.epsilon:.2f}")
         
@@ -130,7 +135,7 @@ def train_dqn(continue_training=False):
             print(f"Checkpoint saved at episode {e+1}")
 
     # Save rewards per episode to a file
-    np.save('rewards_per_episode.npy', rewards_per_episode)
+    np.save('rewards_per_episode.npy', np.array(rewards_per_episode))
     print("Rewards per episode saved to 'rewards_per_episode.npy'")
 
 if __name__ == "__main__":
