@@ -1,5 +1,14 @@
 [
     {
+        "label": "gymnasium",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "gymnasium",
+        "description": "gymnasium",
+        "detail": "gymnasium",
+        "documentation": {}
+    },
+    {
         "label": "numpy",
         "kind": 6,
         "isExtraImport": true,
@@ -34,15 +43,6 @@
         "documentation": {}
     },
     {
-        "label": "gymnasium",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "gymnasium",
-        "description": "gymnasium",
-        "detail": "gymnasium",
-        "documentation": {}
-    },
-    {
         "label": "tensorflow",
         "kind": 6,
         "isExtraImport": true,
@@ -52,7 +52,15 @@
         "documentation": {}
     },
     {
-        "label": "models",
+        "label": "keras",
+        "importPath": "tensorflow",
+        "description": "tensorflow",
+        "isExtraImport": true,
+        "detail": "tensorflow",
+        "documentation": {}
+    },
+    {
+        "label": "Sequential",
         "importPath": "keras",
         "description": "keras",
         "isExtraImport": true,
@@ -69,6 +77,14 @@
     },
     {
         "label": "optimizers",
+        "importPath": "keras",
+        "description": "keras",
+        "isExtraImport": true,
+        "detail": "keras",
+        "documentation": {}
+    },
+    {
+        "label": "losses",
         "importPath": "keras",
         "description": "keras",
         "isExtraImport": true,
@@ -142,7 +158,7 @@
         "kind": 6,
         "importPath": "cartpole_train",
         "description": "cartpole_train",
-        "peekOfCode": "class DQNAgent:\n    def __init__(self, state_size, action_size, load_model=False, model_path='dqn_cartpole.keras'):\n        self.state_size = state_size\n        self.action_size = action_size\n        self.memory = deque(maxlen=5000)  # Increased memory size for better replay\n        self.gamma = 0.90    # Modified discount rate\n        self.epsilon = 1.0   # Exploration rate\n        self.epsilon_min = 0.01\n        self.epsilon_decay = 0.99  # Slower decay for more exploration\n        self.learning_rate = 0.0005  # Lower learning rate for smoother convergence",
+        "peekOfCode": "class DQNAgent:\n    def __init__(self, state_size, action_size, load_model=False, model_path='dqn_cartpole.keras'):\n        self.state_size = state_size\n        self.action_size = action_size\n        self.memory = deque(maxlen=5000)\n        self.gamma = 0.95  # Discount factor\n        self.epsilon = 1.0  # Exploration rate\n        self.epsilon_min = 0.01\n        self.epsilon_decay = 0.995\n        self.learning_rate = 0.001  # Increased learning rate for faster convergence",
         "detail": "cartpole_train",
         "documentation": {}
     },
@@ -151,7 +167,7 @@
         "kind": 2,
         "importPath": "cartpole_train",
         "description": "cartpole_train",
-        "peekOfCode": "def train_dqn(continue_training=False):\n    env = gym.make('CartPole-v1')\n    state_size = env.observation_space.shape[0]\n    action_size = env.action_space.n\n    agent = DQNAgent(state_size, action_size, load_model=continue_training)\n    done = False\n    batch_size = 64  # Increased batch size for more stable training\n    EPISODES = 500  # Maximum number of episodes to train\n    # Load rewards and determine starting episode if continuing training\n    if continue_training and os.path.exists('rewards_per_episode.npy'):",
+        "peekOfCode": "def train_dqn(continue_training=False):\n    env = gym.make('CartPole-v1')\n    state_size = env.observation_space.shape[0]\n    action_size = env.action_space.n\n    agent = DQNAgent(state_size, action_size, load_model=continue_training)\n    batch_size = 32\n    EPISODES = 500\n    # Load rewards and determine starting episode if continuing training\n    if continue_training and os.path.exists('rewards_per_episode.npy'):\n        rewards_per_episode = np.load('rewards_per_episode.npy').tolist()",
         "detail": "cartpole_train",
         "documentation": {}
     },
