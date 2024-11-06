@@ -9,13 +9,19 @@ def train_dqn(continue_training=False):
     state_size = env.observation_space.shape[0]
     action_size = env.action_space.n
     model_path = "dqn_cartpole.keras"
+    
+    # Extract base name without extension from model_path for dynamic rewards file
+    rewards_file = model_path + "_rewards_per_episode.npy"
+    
+    # Initialize the DQNAgent with dynamic model path
     agent = DQNAgent(state_size, action_size, model_path, load_model=continue_training)
+    
     batch_size = 32
     EPISODES = 500
 
     # Load rewards and determine starting episode if continuing training
-    if continue_training and os.path.exists('rewards_per_episode.npy'):
-        rewards_per_episode = np.load('rewards_per_episode.npy').tolist()
+    if continue_training and os.path.exists(rewards_file):
+        rewards_per_episode = np.load(rewards_file).tolist()
         start_episode = len(rewards_per_episode)
         print(f"Continuing training from episode {start_episode + 1}")
     else:
@@ -57,7 +63,7 @@ def train_dqn(continue_training=False):
                 if consecutive_max_scores >= patience:
                     print(f"Early stopping triggered after {e + 1} episodes.")
                     agent.model.save(agent.model_path)
-                    np.save('rewards_per_episode.npy', np.array(rewards_per_episode))
+                    np.save(rewards_file, np.array(rewards_per_episode))  # Save rewards dynamically
                     print("Model and rewards saved.")
                     break
             else:
@@ -66,9 +72,9 @@ def train_dqn(continue_training=False):
             # Save checkpoint every 5 episodes
             if (e + 1) % 5 == 0:
                 agent.model.save(agent.model_path)
-                np.save('rewards_per_episode.npy', np.array(rewards_per_episode))
+                np.save(rewards_file, np.array(rewards_per_episode))  # Save rewards dynamically
                 print(f"Checkpoint saved at episode {e + 1}")
-                print("Rewards per episode saved to 'rewards_per_episode.npy'")
+                print(f"Rewards per episode saved to '{rewards_file}'")
 
     except KeyboardInterrupt:
         print('Training interrupted by user.')
@@ -76,7 +82,7 @@ def train_dqn(continue_training=False):
     finally:
         # Save the model and rewards before exiting
         agent.model.save(agent.model_path)
-        np.save('rewards_per_episode.npy', np.array(rewards_per_episode))
+        np.save(rewards_file, np.array(rewards_per_episode))  # Save rewards dynamically
         print('Model and rewards saved.')
 
 if __name__ == "__main__":

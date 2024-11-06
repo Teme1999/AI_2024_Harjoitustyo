@@ -9,6 +9,7 @@ import pygame
 def run_agent():
     # Load the trained model
     model_path = 'dqn_cartpole.keras'
+    
     if not os.path.exists(model_path):
         model_path = 'dqn_cartpole_weights.h5f'
     if os.path.exists(model_path):
