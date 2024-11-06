@@ -8,7 +8,8 @@ def train_dqn(continue_training=False):
     env = gym.make('CartPole-v1')
     state_size = env.observation_space.shape[0]
     action_size = env.action_space.n
-    agent = DQNAgent(state_size, action_size, load_model=continue_training)
+    model_path = "dqn_cartpole.keras"
+    agent = DQNAgent(state_size, action_size, model_path, load_model=continue_training)
     batch_size = 32
     EPISODES = 500
 

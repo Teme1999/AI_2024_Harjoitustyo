@@ -9,9 +9,10 @@ import os
 
 # Define the DQN agent class
 class DQNAgent:
-    def __init__(self, state_size, action_size, load_model=False, model_path='dqn_cartpole.keras'):
+    def __init__(self, state_size, action_size, model_path, load_model=False):
         self.state_size = state_size
         self.action_size = action_size
+        self.model_path = model_path
         self.memory = deque(maxlen=5000)
         self.gamma = 0.95  # Discount factor
         self.epsilon = 1.0  # Exploration rate
@@ -19,8 +20,7 @@ class DQNAgent:
         self.epsilon_decay = 0.995
         self.learning_rate = 0.001  # Increased learning rate for faster convergence
         self.tau = 0.1  # Soft update parameter for target network
-        self.model_path = model_path
-
+        
         # Main and target networks
         self.model = self._build_model()
         self.target_model = self._build_model()
