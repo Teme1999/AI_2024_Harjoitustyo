@@ -2,70 +2,58 @@ import gymnasium as gym
 import numpy as np
 import os
 from dqn_agent import DQNAgent
-import time
 
-# TODO make good reward fucntion
+# TODO make a good reward function
 def run_episode(agent, env, rewards_file, episode_idx):
     state_size = env.observation_space.shape[0]
     state, _ = env.reset()
     state = np.reshape(state, [1, state_size])
-    total_reward = 0
-    prev_position = state[0][0]  # Initial position of the car
-    prev_velocity = state[0][1]  # Initial velocity of the car
-    episode_done = False  # Flag to track episode completion
     
-    # Define constants for goal completion and speed rewards
-    goal_position = 0.5  # Set the goal position (where we want the agent to reach)
-    goal_reward = 100  # Large reward for completing the episode
-    progress_reward = 0.1  # Small reward for positive progress
-    speed_bonus = 0.5  # Reward for moving fast in the right direction
-    penalty_for_moving_back = -1.0  # Penalty for moving backward (negative velocity)
+    # Track the starting position
+    starting_position = state[0][0]
+    furthest_distance = 0  # Initial furthest distance is zero
+
+    goal_position = 0.5  # Goal position to reach
+    goal_reward = 100  # Reward for reaching the goal
 
     for time_t in range(200):  # Max number of timesteps in each episode
         action = agent.act(state)  # Select an action based on the current state
         next_state, _, done, truncated, _ = env.step(action)  # Take the action
 
         current_position = next_state[0]
-        current_velocity = next_state[1]
 
-        # Reward for reaching a new height (positive progress)
-        if current_position > prev_position:
-            reward = progress_reward  # Small reward for upward progress
-        else:  # Moving backward or staying in the same place
-            reward = penalty_for_moving_back
-        
-        # Reward for increasing speed (the faster it moves, the better)
-        if current_velocity > prev_velocity:  # If the agent's speed is increasing in the right direction
-            reward += speed_bonus  # Additional reward for increasing speed
-        
-        # Large reward for reaching the goal position (0.5 or higher)
+        # Calculate the distance from the starting position
+        distance_from_start = abs(current_position - starting_position)
+
+        # Update the furthest distance if this is the new maximum
+        if distance_from_start > furthest_distance:
+            furthest_distance = distance_from_start
+
+        # Reward based on the furthest distance achieved in this episode
+        reward = furthest_distance * 100  # Reward is the maximum distance from start
+
+        # Large reward for reaching or surpassing the goal position
         if current_position >= goal_position:
             reward += goal_reward
             done = True  # End the episode once goal is reached
         
-        total_reward += reward
-        prev_position = current_position  # Update the previous position
-        prev_velocity = current_velocity  # Update the previous velocity
-        
-        next_state = np.reshape(next_state, [1, state_size])
+        state = np.reshape(next_state, [1, state_size])  # Update the state to the next state
         agent.remember(state, action, reward, next_state, done)  # Save experience to memory
-        state = next_state
-        
+
         # Exit early if done or truncated
-        if done or truncated:
-            print(f"Episode: {episode_idx + 1}, score: {time_t}, total reward: {total_reward}")
-            episode_done = True
+        if truncated:
+            print(f"Episode: {episode_idx + 1}, score: {time_t}, total reward: {reward}")
             break
-        
+
     # Replay memory and training outside the loop
     if len(agent.memory) > 32:  # Check if memory is sufficient for replay
         agent.replay(32)
     
     # Return the total reward at the end of the episode
-    return total_reward
+    return reward
 
 # Function to train DQN using sequential episodes
-def train_dqn_mountain_car(continue_training=False):
+def train_dqn_mountain_car():
     # Create environment with render_mode='human' to display the game window
     env = gym.make("MountainCar-v0", render_mode="human")
     state_size = env.observation_space.shape[0]  # 2-dimensional state space (position, velocity)
@@ -74,11 +62,14 @@ def train_dqn_mountain_car(continue_training=False):
     
     rewards_file = model_path + "_rewards_per_episode.npy"
     
+    # Determine if we should continue training from a checkpoint
+    continue_training = os.path.exists(model_path) and os.path.exists(rewards_file)
+    
     # Initialize the DQNAgent with dynamic model path
     agent = DQNAgent(state_size, action_size, model_path, load_model=continue_training)
 
     # Load rewards and determine starting episode if continuing training
-    if continue_training and os.path.exists(rewards_file):
+    if continue_training:
         rewards_per_episode = np.load(rewards_file).tolist()
         start_episode = len(rewards_per_episode)
         print(f"Continuing training from episode {start_episode + 1}")
@@ -112,5 +103,4 @@ def train_dqn_mountain_car(continue_training=False):
         print('Model and rewards saved.')
 
 if __name__ == "__main__":
-    continue_training = False  # Set to True to load from checkpoint and continue training
-    train_dqn_mountain_car(continue_training=continue_training)
+    train_dqn_mountain_car()
