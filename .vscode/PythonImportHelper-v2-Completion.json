@@ -1,14 +1,5 @@
 [
     {
-        "label": "gymnasium",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "gymnasium",
-        "description": "gymnasium",
-        "detail": "gymnasium",
-        "documentation": {}
-    },
-    {
         "label": "numpy",
         "kind": 6,
         "isExtraImport": true,
@@ -18,45 +9,29 @@
         "documentation": {}
     },
     {
-        "label": "random",
+        "label": "matplotlib.pyplot",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "random",
-        "description": "random",
-        "detail": "random",
+        "importPath": "matplotlib.pyplot",
+        "description": "matplotlib.pyplot",
+        "detail": "matplotlib.pyplot",
         "documentation": {}
     },
     {
-        "label": "deque",
-        "importPath": "collections",
-        "description": "collections",
-        "isExtraImport": true,
-        "detail": "collections",
-        "documentation": {}
-    },
-    {
-        "label": "deque",
-        "importPath": "collections",
-        "description": "collections",
-        "isExtraImport": true,
-        "detail": "collections",
-        "documentation": {}
-    },
-    {
-        "label": "tensorflow",
+        "label": "gymnasium",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "tensorflow",
-        "description": "tensorflow",
-        "detail": "tensorflow",
+        "importPath": "gymnasium",
+        "description": "gymnasium",
+        "detail": "gymnasium",
         "documentation": {}
     },
     {
-        "label": "keras",
-        "importPath": "tensorflow",
-        "description": "tensorflow",
+        "label": "models",
+        "importPath": "keras",
+        "description": "keras",
         "isExtraImport": true,
-        "detail": "tensorflow",
+        "detail": "keras",
         "documentation": {}
     },
     {
@@ -100,6 +75,15 @@
         "documentation": {}
     },
     {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
+        "documentation": {}
+    },
+    {
         "label": "os",
         "kind": 6,
         "isExtraImport": true,
@@ -109,12 +93,62 @@
         "documentation": {}
     },
     {
-        "label": "matplotlib.pyplot",
+        "label": "pygame",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "matplotlib.pyplot",
-        "description": "matplotlib.pyplot",
-        "detail": "matplotlib.pyplot",
+        "importPath": "pygame",
+        "description": "pygame",
+        "detail": "pygame",
+        "documentation": {}
+    },
+    {
+        "label": "DQNAgent",
+        "importPath": "dqn_agent",
+        "description": "dqn_agent",
+        "isExtraImport": true,
+        "detail": "dqn_agent",
+        "documentation": {}
+    },
+    {
+        "label": "DQNAgent",
+        "importPath": "dqn_agent",
+        "description": "dqn_agent",
+        "isExtraImport": true,
+        "detail": "dqn_agent",
+        "documentation": {}
+    },
+    {
+        "label": "random",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "random",
+        "description": "random",
+        "detail": "random",
+        "documentation": {}
+    },
+    {
+        "label": "deque",
+        "importPath": "collections",
+        "description": "collections",
+        "isExtraImport": true,
+        "detail": "collections",
+        "documentation": {}
+    },
+    {
+        "label": "tensorflow",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "tensorflow",
+        "description": "tensorflow",
+        "detail": "tensorflow",
+        "documentation": {}
+    },
+    {
+        "label": "keras",
+        "importPath": "tensorflow",
+        "description": "tensorflow",
+        "isExtraImport": true,
+        "detail": "tensorflow",
         "documentation": {}
     },
     {
@@ -127,39 +161,21 @@
         "documentation": {}
     },
     {
-        "label": "time",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "time",
-        "description": "time",
-        "detail": "time",
+        "label": "visualize_rewards",
+        "kind": 2,
+        "importPath": "cartpole_plot_rewards",
+        "description": "cartpole_plot_rewards",
+        "peekOfCode": "def visualize_rewards():\n    # Load rewards per episode from the saved file\n    rewards_per_episode = np.load('dqn_cartpole.keras_rewards_per_episode.npy')\n    EPISODES = len(rewards_per_episode)\n    # Plot the total rewards per episode\n    plt.figure(figsize=(12, 6))\n    plt.plot(range(1, EPISODES + 1), rewards_per_episode)\n    plt.xlabel('Episode')\n    plt.ylabel('Total Reward')\n    plt.title('Agent Performance over Episodes during Training')",
+        "detail": "cartpole_plot_rewards",
         "documentation": {}
     },
     {
-        "label": "gym",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "gym",
-        "description": "gym",
-        "detail": "gym",
-        "documentation": {}
-    },
-    {
-        "label": "cv2",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "cv2",
-        "description": "cv2",
-        "detail": "cv2",
-        "documentation": {}
-    },
-    {
-        "label": "DQNAgent",
-        "kind": 6,
-        "importPath": "cartpole_train",
-        "description": "cartpole_train",
-        "peekOfCode": "class DQNAgent:\n    def __init__(self, state_size, action_size, load_model=False, model_path='dqn_cartpole.keras'):\n        self.state_size = state_size\n        self.action_size = action_size\n        self.memory = deque(maxlen=5000)\n        self.gamma = 0.95  # Discount factor\n        self.epsilon = 1.0  # Exploration rate\n        self.epsilon_min = 0.01\n        self.epsilon_decay = 0.995\n        self.learning_rate = 0.001  # Increased learning rate for faster convergence",
-        "detail": "cartpole_train",
+        "label": "run_agent",
+        "kind": 2,
+        "importPath": "cartpole_test",
+        "description": "cartpole_test",
+        "peekOfCode": "def run_agent():\n    # Load the trained model\n    model_path = 'dqn_cartpole.keras'\n    if os.path.exists(model_path):\n        model = models.load_model(model_path)\n        print(f\"Loaded model from {model_path}\")\n    else:\n        print(\"Trained model not found.\")\n        return\n    # Create the environment",
+        "detail": "cartpole_test",
         "documentation": {}
     },
     {
@@ -167,161 +183,53 @@
         "kind": 2,
         "importPath": "cartpole_train",
         "description": "cartpole_train",
-        "peekOfCode": "def train_dqn(continue_training=False):\n    env = gym.make('CartPole-v1')\n    state_size = env.observation_space.shape[0]\n    action_size = env.action_space.n\n    agent = DQNAgent(state_size, action_size, load_model=continue_training)\n    batch_size = 32\n    EPISODES = 500\n    # Load rewards and determine starting episode if continuing training\n    if continue_training and os.path.exists('rewards_per_episode.npy'):\n        rewards_per_episode = np.load('rewards_per_episode.npy').tolist()",
+        "peekOfCode": "def train_dqn(continue_training=False):\n    env = gym.make('CartPole-v1')\n    state_size = env.observation_space.shape[0]\n    action_size = env.action_space.n\n    model_path = \"dqn_cartpole.keras\"\n    # Extract base name without extension from model_path for dynamic rewards file\n    rewards_file = model_path + \"_rewards_per_episode.npy\"\n    # Initialize the DQNAgent with dynamic model path\n    agent = DQNAgent(state_size, action_size, model_path, load_model=continue_training)\n    batch_size = 32",
         "detail": "cartpole_train",
-        "documentation": {}
-    },
-    {
-        "label": "visualize_rewards",
-        "kind": 2,
-        "importPath": "cartpole_visualise",
-        "description": "cartpole_visualise",
-        "peekOfCode": "def visualize_rewards():\n    # Load rewards per episode from the saved file\n    rewards_per_episode = np.load('rewards_per_episode.npy')\n    EPISODES = len(rewards_per_episode)\n    # Plot the total rewards per episode\n    plt.figure(figsize=(12, 6))\n    plt.plot(range(1, EPISODES + 1), rewards_per_episode)\n    plt.xlabel('Episode')\n    plt.ylabel('Total Reward')\n    plt.title('Agent Performance over Episodes during Training')",
-        "detail": "cartpole_visualise",
-        "documentation": {}
-    },
-    {
-        "label": "run_agent_episodes",
-        "kind": 2,
-        "importPath": "cartpole_visualise",
-        "description": "cartpole_visualise",
-        "peekOfCode": "def run_agent_episodes():\n    # Load the trained model\n    model_path = 'dqn_cartpole.keras'\n    if not os.path.exists(model_path):\n        model_path = 'dqn_cartpole_weights.h5f'  # Try the weights file\n    if os.path.exists(model_path):\n        model = models.load_model(model_path)\n        print(f\"Loaded model from {model_path}\")\n    else:\n        print(\"Trained model not found. Please ensure the model is saved as 'dqn_cartpole.keras' or 'dqn_cartpole_weights.h5f'.\")",
-        "detail": "cartpole_visualise",
         "documentation": {}
     },
     {
         "label": "DQNAgent",
         "kind": 6,
-        "importPath": "test",
-        "description": "test",
-        "peekOfCode": "class DQNAgent:\n    def __init__(self, action_size):\n        self.action_size = action_size\n        self.memory = deque(maxlen=MEMORY_SIZE)\n        self.epsilon = EPSILON_START\n        print(\"[DEBUG] Initializing DQN agent with action size:\", action_size)\n        self.model = self.build_model()\n        self.target_model = self.build_model()\n        self.update_target_model()\n        print(\"[DEBUG] DQN agent initialized successfully.\")",
-        "detail": "test",
+        "importPath": "dqn_agent",
+        "description": "dqn_agent",
+        "peekOfCode": "class DQNAgent:\n    def __init__(self, state_size, action_size, model_path, load_model=False):\n        self.state_size = state_size\n        self.action_size = action_size\n        self.model_path = model_path\n        self.memory = deque(maxlen=5000)\n        self.gamma = 0.95  # Discount factor\n        self.epsilon = 1.0  # Exploration rate\n        self.epsilon_min = 0.01\n        self.epsilon_decay = 0.995",
+        "detail": "dqn_agent",
         "documentation": {}
     },
     {
-        "label": "preprocess_frame",
+        "label": "visualize_rewards",
         "kind": 2,
-        "importPath": "test",
-        "description": "test",
-        "peekOfCode": "def preprocess_frame(frame):\n    gray_frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)\n    resized_frame = cv2.resize(gray_frame, (84, 84), interpolation=cv2.INTER_AREA)\n    return resized_frame / 255.0\n# Deep Q-Network with Debugging Prints\nclass DQNAgent:\n    def __init__(self, action_size):\n        self.action_size = action_size\n        self.memory = deque(maxlen=MEMORY_SIZE)\n        self.epsilon = EPSILON_START",
-        "detail": "test",
+        "importPath": "mountain_car_plot_rewards",
+        "description": "mountain_car_plot_rewards",
+        "peekOfCode": "def visualize_rewards():\n    # Load rewards per episode from the saved file\n    rewards_per_episode = np.load('dqn_mountain_car.keras_rewards_per_episode.npy')\n    EPISODES = len(rewards_per_episode)\n    # Plot the total rewards per episode\n    plt.figure(figsize=(12, 6))\n    plt.plot(range(1, EPISODES + 1), rewards_per_episode)\n    plt.xlabel('Episode')\n    plt.ylabel('Total Reward')\n    plt.title('Agent Performance over Episodes during Training')",
+        "detail": "mountain_car_plot_rewards",
         "documentation": {}
     },
     {
-        "label": "train_agent",
+        "label": "run_agent",
         "kind": 2,
-        "importPath": "test",
-        "description": "test",
-        "peekOfCode": "def train_agent(env):\n    agent = DQNAgent(action_size=env.action_space.n)\n    scores = []\n    for e in range(TRAINING_EPISODES):\n        print(f\"\\n[DEBUG] Starting episode {e+1}/{TRAINING_EPISODES}\")\n        state = preprocess_frame(env.reset())\n        state = np.stack([state] * 4, axis=2)  # Stack 4 frames\n        total_reward = 0\n        for time in range(MAX_STEPS_PER_EPISODE):\n            action = agent.act(state)",
-        "detail": "test",
+        "importPath": "mountain_car_test",
+        "description": "mountain_car_test",
+        "peekOfCode": "def run_agent():\n    # Load the trained model\n    model_path = 'dqn_mountain_car.keras'\n    if os.path.exists(model_path):\n        model = models.load_model(model_path)\n        print(f\"Loaded model from {model_path}\")\n    else:\n        print(\"Trained model not found.\")\n        return\n    # Create the environment",
+        "detail": "mountain_car_test",
         "documentation": {}
     },
     {
-        "label": "render_game",
+        "label": "run_episode",
         "kind": 2,
-        "importPath": "test",
-        "description": "test",
-        "peekOfCode": "def render_game(agent, env):\n    print(\"[DEBUG] Starting game rendering.\")\n    state = preprocess_frame(env.reset())\n    state = np.stack([state] * 4, axis=2)\n    for _ in range(MAX_STEPS_PER_EPISODE):\n        action = agent.act(state)\n        next_frame, _, done, _ = env.step(action)\n        env.render()  # Display the game\n        next_state = preprocess_frame(next_frame)\n        next_state = np.stack([next_state] * 4, axis=2)",
-        "detail": "test",
+        "importPath": "mountain_train",
+        "description": "mountain_train",
+        "peekOfCode": "def run_episode(agent, env, train=True, batch_size=64, max_steps=200):\n    total_reward = 0\n    state, _ = env.reset()  # Reset environment and get the initial state\n    state = state.reshape(1, -1)  # Ensure state is in the right shape\n    terminated = False\n    steps = 0\n    highest_peak = state[0, 0]  # Track the highest position reached in the episode\n    while not terminated and steps < max_steps:\n        # Select an action using the DQN agent\n        action = agent.act(state)",
+        "detail": "mountain_train",
         "documentation": {}
     },
     {
-        "label": "MEMORY_SIZE",
-        "kind": 5,
-        "importPath": "test",
-        "description": "test",
-        "peekOfCode": "MEMORY_SIZE = 10000\nBATCH_SIZE = 32\nGAMMA = 0.99\nEPSILON_START = 1.0\nEPSILON_END = 0.1\nEPSILON_DECAY = 1000000\nTARGET_UPDATE_FREQUENCY = 1000\nTRAINING_EPISODES = 10000\nMAX_STEPS_PER_EPISODE = 500\nREPLAY_START_SIZE = 1000",
-        "detail": "test",
-        "documentation": {}
-    },
-    {
-        "label": "BATCH_SIZE",
-        "kind": 5,
-        "importPath": "test",
-        "description": "test",
-        "peekOfCode": "BATCH_SIZE = 32\nGAMMA = 0.99\nEPSILON_START = 1.0\nEPSILON_END = 0.1\nEPSILON_DECAY = 1000000\nTARGET_UPDATE_FREQUENCY = 1000\nTRAINING_EPISODES = 10000\nMAX_STEPS_PER_EPISODE = 500\nREPLAY_START_SIZE = 1000\nLEARNING_RATE = 0.00025",
-        "detail": "test",
-        "documentation": {}
-    },
-    {
-        "label": "GAMMA",
-        "kind": 5,
-        "importPath": "test",
-        "description": "test",
-        "peekOfCode": "GAMMA = 0.99\nEPSILON_START = 1.0\nEPSILON_END = 0.1\nEPSILON_DECAY = 1000000\nTARGET_UPDATE_FREQUENCY = 1000\nTRAINING_EPISODES = 10000\nMAX_STEPS_PER_EPISODE = 500\nREPLAY_START_SIZE = 1000\nLEARNING_RATE = 0.00025\n# Preprocess frames to grayscale and resize",
-        "detail": "test",
-        "documentation": {}
-    },
-    {
-        "label": "EPSILON_START",
-        "kind": 5,
-        "importPath": "test",
-        "description": "test",
-        "peekOfCode": "EPSILON_START = 1.0\nEPSILON_END = 0.1\nEPSILON_DECAY = 1000000\nTARGET_UPDATE_FREQUENCY = 1000\nTRAINING_EPISODES = 10000\nMAX_STEPS_PER_EPISODE = 500\nREPLAY_START_SIZE = 1000\nLEARNING_RATE = 0.00025\n# Preprocess frames to grayscale and resize\ndef preprocess_frame(frame):",
-        "detail": "test",
-        "documentation": {}
-    },
-    {
-        "label": "EPSILON_END",
-        "kind": 5,
-        "importPath": "test",
-        "description": "test",
-        "peekOfCode": "EPSILON_END = 0.1\nEPSILON_DECAY = 1000000\nTARGET_UPDATE_FREQUENCY = 1000\nTRAINING_EPISODES = 10000\nMAX_STEPS_PER_EPISODE = 500\nREPLAY_START_SIZE = 1000\nLEARNING_RATE = 0.00025\n# Preprocess frames to grayscale and resize\ndef preprocess_frame(frame):\n    gray_frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)",
-        "detail": "test",
-        "documentation": {}
-    },
-    {
-        "label": "EPSILON_DECAY",
-        "kind": 5,
-        "importPath": "test",
-        "description": "test",
-        "peekOfCode": "EPSILON_DECAY = 1000000\nTARGET_UPDATE_FREQUENCY = 1000\nTRAINING_EPISODES = 10000\nMAX_STEPS_PER_EPISODE = 500\nREPLAY_START_SIZE = 1000\nLEARNING_RATE = 0.00025\n# Preprocess frames to grayscale and resize\ndef preprocess_frame(frame):\n    gray_frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)\n    resized_frame = cv2.resize(gray_frame, (84, 84), interpolation=cv2.INTER_AREA)",
-        "detail": "test",
-        "documentation": {}
-    },
-    {
-        "label": "TARGET_UPDATE_FREQUENCY",
-        "kind": 5,
-        "importPath": "test",
-        "description": "test",
-        "peekOfCode": "TARGET_UPDATE_FREQUENCY = 1000\nTRAINING_EPISODES = 10000\nMAX_STEPS_PER_EPISODE = 500\nREPLAY_START_SIZE = 1000\nLEARNING_RATE = 0.00025\n# Preprocess frames to grayscale and resize\ndef preprocess_frame(frame):\n    gray_frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)\n    resized_frame = cv2.resize(gray_frame, (84, 84), interpolation=cv2.INTER_AREA)\n    return resized_frame / 255.0",
-        "detail": "test",
-        "documentation": {}
-    },
-    {
-        "label": "TRAINING_EPISODES",
-        "kind": 5,
-        "importPath": "test",
-        "description": "test",
-        "peekOfCode": "TRAINING_EPISODES = 10000\nMAX_STEPS_PER_EPISODE = 500\nREPLAY_START_SIZE = 1000\nLEARNING_RATE = 0.00025\n# Preprocess frames to grayscale and resize\ndef preprocess_frame(frame):\n    gray_frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)\n    resized_frame = cv2.resize(gray_frame, (84, 84), interpolation=cv2.INTER_AREA)\n    return resized_frame / 255.0\n# Deep Q-Network with Debugging Prints",
-        "detail": "test",
-        "documentation": {}
-    },
-    {
-        "label": "MAX_STEPS_PER_EPISODE",
-        "kind": 5,
-        "importPath": "test",
-        "description": "test",
-        "peekOfCode": "MAX_STEPS_PER_EPISODE = 500\nREPLAY_START_SIZE = 1000\nLEARNING_RATE = 0.00025\n# Preprocess frames to grayscale and resize\ndef preprocess_frame(frame):\n    gray_frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)\n    resized_frame = cv2.resize(gray_frame, (84, 84), interpolation=cv2.INTER_AREA)\n    return resized_frame / 255.0\n# Deep Q-Network with Debugging Prints\nclass DQNAgent:",
-        "detail": "test",
-        "documentation": {}
-    },
-    {
-        "label": "REPLAY_START_SIZE",
-        "kind": 5,
-        "importPath": "test",
-        "description": "test",
-        "peekOfCode": "REPLAY_START_SIZE = 1000\nLEARNING_RATE = 0.00025\n# Preprocess frames to grayscale and resize\ndef preprocess_frame(frame):\n    gray_frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)\n    resized_frame = cv2.resize(gray_frame, (84, 84), interpolation=cv2.INTER_AREA)\n    return resized_frame / 255.0\n# Deep Q-Network with Debugging Prints\nclass DQNAgent:\n    def __init__(self, action_size):",
-        "detail": "test",
-        "documentation": {}
-    },
-    {
-        "label": "LEARNING_RATE",
-        "kind": 5,
-        "importPath": "test",
-        "description": "test",
-        "peekOfCode": "LEARNING_RATE = 0.00025\n# Preprocess frames to grayscale and resize\ndef preprocess_frame(frame):\n    gray_frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)\n    resized_frame = cv2.resize(gray_frame, (84, 84), interpolation=cv2.INTER_AREA)\n    return resized_frame / 255.0\n# Deep Q-Network with Debugging Prints\nclass DQNAgent:\n    def __init__(self, action_size):\n        self.action_size = action_size",
-        "detail": "test",
+        "label": "train_dqn_mountain_car",
+        "kind": 2,
+        "importPath": "mountain_train",
+        "description": "mountain_train",
+        "peekOfCode": "def train_dqn_mountain_car(episodes, render=False):\n    model_path = \"dqn_mountain_car.keras\"\n    rewards_file = model_path + \"_rewards_per_episode.npy\"\n    continue_training = os.path.exists(model_path) and os.path.exists(rewards_file)\n    if continue_training:\n        rewards_per_episode = np.load(rewards_file).tolist()\n        start_episode = len(rewards_per_episode)\n        print(f\"Continuing training from episode {start_episode}\")\n    else:\n        rewards_per_episode = []",
+        "detail": "mountain_train",
         "documentation": {}
     }
 ]

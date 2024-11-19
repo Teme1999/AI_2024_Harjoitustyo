@@ -1,4 +1,6 @@
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 def visualize_rewards():
@@ -14,7 +16,7 @@ def visualize_rewards():
     plt.ylabel('Total Reward')
     plt.title('Agent Performance over Episodes during Training')
     plt.grid(True)
-    plt.savefig('mountai_car_agent_performance_training.png')
+    plt.savefig('mountain_car_agent_performance_training.png')
     print("Plot saved as 'mountai_car_agent_performance_training.png'")
 
 visualize_rewards()

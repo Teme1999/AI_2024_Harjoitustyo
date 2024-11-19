@@ -37,8 +37,8 @@ def run_episode(agent, env, train=True, batch_size=64, max_steps=200):
         total_reward += reward
         steps += 1
 
-        # Train the agent at intervals
-        if train and len(agent.memory) > batch_size and steps % 5 == 0:
+        # Train the agent at every step
+        if train and len(agent.memory) > batch_size:
             agent.replay(batch_size)
 
     # Add the highest peak reward once at the end of the episode, multiplied by 100
@@ -67,6 +67,9 @@ def train_dqn_mountain_car(episodes, render=False):
 
     # Initialize the DQNAgent
     agent = DQNAgent(state_size, action_size, model_path, load_model=continue_training)
+    
+    # Set agent's epsilon to a lower value to reduce exploration
+    agent.epsilon = 0.01
 
     for e in range(start_episode, episodes):
         total_reward = run_episode(agent, env, train=True, batch_size=64, max_steps=200)
