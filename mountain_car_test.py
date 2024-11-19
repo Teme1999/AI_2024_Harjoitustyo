@@ -7,7 +7,7 @@ import pygame
 
 def run_agent():
     # Load the trained model
-    model_path = 'dqn_cartpole.keras'
+    model_path = 'dqn_mountain_car.keras'
     
     if os.path.exists(model_path):
         model = models.load_model(model_path)
@@ -17,7 +17,7 @@ def run_agent():
         return
 
     # Create the environment
-    env = gym.make('CartPole-v1', render_mode='human')
+    env = gym.make('MountainCar-v0', render_mode='human')
 
     # Initialize pygame for event handling
     pygame.init()

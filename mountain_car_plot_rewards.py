@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 def visualize_rewards():
     # Load rewards per episode from the saved file
-    rewards_per_episode = np.load('dqn_cartpole.keras_rewards_per_episode.npy')
+    rewards_per_episode = np.load('dqn_mountain_car.keras_rewards_per_episode.npy')
 
     EPISODES = len(rewards_per_episode)
 
@@ -14,7 +14,7 @@ def visualize_rewards():
     plt.ylabel('Total Reward')
     plt.title('Agent Performance over Episodes during Training')
     plt.grid(True)
-    plt.savefig('cartpole_agent_performance_training.png')
-    print("Plot saved as 'cartpole_agent_performance_training.png'")
+    plt.savefig('mountai_car_agent_performance_training.png')
+    print("Plot saved as 'mountai_car_agent_performance_training.png'")
 
 visualize_rewards()
