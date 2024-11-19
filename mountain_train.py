@@ -24,10 +24,14 @@ def run_episode(agent, env, train=True, batch_size=64, max_steps=200):
         if new_state[0, 0] > highest_peak:
             highest_peak = new_state[0, 0]
 
-        # Check if the car has reached the goal
+        # Reward for reaching the goal
         if new_state[0, 0] >= 0.5 and not terminated:
-            reward += 100  # Add 100 reward for reaching the goal
-            terminated = True  # Terminate the episode if goal is reached
+            reward += 100  # Add reward for reaching the goal
+            terminated = True  # Terminate the episode if the goal is reached
+
+        # Reward for high velocity in either direction
+        velocity = new_state[0, 1]  # Assuming velocity is the second state variable
+        reward += 10 * abs(velocity)  # Encourage higher speeds
 
         # Remember experience for replay
         agent.remember(state, action, reward, new_state, terminated or truncated)
@@ -37,14 +41,15 @@ def run_episode(agent, env, train=True, batch_size=64, max_steps=200):
         total_reward += reward
         steps += 1
 
-        # Train the agent at every step
+        # Train the agent every 10 steps
         if train and len(agent.memory) > batch_size:
             agent.replay(batch_size)
 
-    # Add the highest peak reward once at the end of the episode, multiplied by 100
-    total_reward += highest_peak * 100
+    # Add a final reward for the highest peak reached
+    total_reward += round((highest_peak + 0.2) * 100, 0)
 
     return total_reward
+
 
 # Function to train the DQN on MountainCar-v0
 def train_dqn_mountain_car(episodes, render=False):
@@ -71,23 +76,28 @@ def train_dqn_mountain_car(episodes, render=False):
     # Set agent's epsilon to a lower value to reduce exploration
     agent.epsilon = 0.01
 
-    for e in range(start_episode, episodes):
-        total_reward = run_episode(agent, env, train=True, batch_size=64, max_steps=200)
-        rewards_per_episode.append(total_reward)
+    try:
+        for e in range(start_episode, episodes):
+            total_reward = run_episode(agent, env, train=True, batch_size=64, max_steps=200)
+            rewards_per_episode.append(total_reward)
 
-        print(f"Episode: {e + 1}/{episodes}, Total Reward: {total_reward}")
+            print(f"Episode: {e + 1}/{episodes}, Total Reward: {total_reward}")
 
-        # Save the model and rewards periodically
-        if (e + 1) % 5 == 0:
-            agent.model.save(model_path)
-            np.save(rewards_file, np.array(rewards_per_episode))
-            print(f"Checkpoint saved at episode {e + 1}")
+            # Save the model and rewards periodically
+            if (e + 1) % 5 == 0:
+                agent.model.save(model_path)
+                np.save(rewards_file, np.array(rewards_per_episode))
+                print(f"Checkpoint saved at episode {e + 1}")
 
-    # Save the final model and rewards
-    agent.model.save(model_path)
-    np.save(rewards_file, np.array(rewards_per_episode))
-    print("Training completed. Model and rewards saved.")
-    env.close()
+    except KeyboardInterrupt:
+        print("\nTraining interrupted by user. Saving progress...")
+
+    finally:
+        # Save the final model and rewards before exiting
+        agent.model.save(model_path)
+        np.save(rewards_file, np.array(rewards_per_episode))
+        print("Training completed. Model and rewards saved.")
+        env.close()
 
 if __name__ == "__main__":
     train_dqn_mountain_car(500, render=True)

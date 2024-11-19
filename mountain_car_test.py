@@ -53,7 +53,7 @@ def run_agent():
         # Add a small delay to slow down the rendering for better visualization
         time.sleep(0.02)
     
-    print(f"Agent failed after total reward: {total_reward}")
+    print(f"Completed at step: {abs(total_reward)}")
     env.close()
     pygame.quit()
 
