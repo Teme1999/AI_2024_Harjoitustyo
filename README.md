@@ -47,24 +47,20 @@ File Descriptions:
 
 
 Analysis:
-
     cartpole_train.py trains the model by giving 1 reward for each step it doesn't drop the cartpole. 
     dqn_cartpole.keras_rewards_per_episode.npy show that model made consistent improvement until 85 episode then model got near 0 reward for 10 episodes. 
     After thoes episodes the model reached 500 reward for 5 episodes which ends the training. 
     carpole_test.py can be used and it shows the model playing cartpole-v1 flawlessly.
-
     mountain_car_train.py trains the model by giving reward depending how far the car reaches. 
     0.5 is maximum distance which rewards the ai with 50 for distance, 100 for reaching the goal and -1 for each step it took to reach the goal. 
 
 
 Results:
-
     This project demonstrates the ability of a DQN agent to learn and adapt to diverse environments like CartPole-v1 and MountainCar-v0. 
     Training rewards and testing performance highlight the effectiveness of the implemented model. 
     The dqn is able to learn both games with enough training and then the model can be used to complete the games   continuously.
 
 
 Quotation:
-
     The code base and comments were generated with the assistance of ChatGPT. 
     Modifications and logical reward systems and dqn values were tested and added manually.
