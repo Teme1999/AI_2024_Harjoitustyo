@@ -48,7 +48,8 @@ File Descriptions:
 
 Analysis:
     
-    cartpole_train.py trains the model by giving 1 reward for each step it doesn't drop the cartpole. 
+    cartpole_train.py trains the model by giving 0.1 reward for each step it doesn't drop the cartpole
+    and giving -1 for failure.
     dqn_cartpole.keras_rewards_per_episode.npy show that model made consistent improvement until 85 episode 
     then model got near 0 reward for 10 episodes. 
     After thoes episodes the model reached 500 reward for 5 episodes which ends the training. 
